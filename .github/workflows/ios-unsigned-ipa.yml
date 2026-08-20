@@ -44,7 +44,7 @@ jobs:
           xcodebuild \
             -project iosApp/iosApp.xcodeproj \
             -scheme iosApp \
-            -configuration Release \
+            -configuration Debug \
             -sdk iphoneos \
             -destination 'generic/platform=iOS' \
             -derivedDataPath build/ios-device \
@@ -56,28 +56,28 @@ jobs:
       - name: Package and verify IPA
         working-directory: NuvioMobile
         run: |
-          app="build/ios-device/Build/Products/Release-iphoneos/Nuvio.app"
+          app="build/ios-device/Build/Products/Debug-iphoneos/Nuvio.app"
           test -d "$app"
           rm -rf build/ipa
           mkdir -p build/ipa/Payload
           cp -R "$app" build/ipa/Payload/
           (
             cd build/ipa
-            /usr/bin/zip -qry ../Nuvio-0.4.7-appstore-unsigned.ipa Payload
+            /usr/bin/zip -qry ../Nuvio-0.4.7-debug-unsigned.ipa Payload
           )
-          /usr/bin/unzip -t build/Nuvio-0.4.7-appstore-unsigned.ipa
+          /usr/bin/unzip -t build/Nuvio-0.4.7-debug-unsigned.ipa
           /usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$app/Info.plist"
           /usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$app/Info.plist"
           /usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "$app/Info.plist"
           test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleSupportedPlatforms:0' "$app/Info.plist")" = "iPhoneOS"
           test "$(find build/ipa/Payload -maxdepth 1 -name '*.app' -type d | wc -l | tr -d ' ')" = "1"
-          shasum -a 256 build/Nuvio-0.4.7-appstore-unsigned.ipa
+          shasum -a 256 build/Nuvio-0.4.7-debug-unsigned.ipa
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: Nuvio-0.4.7-appstore-unsigned-ipa
-          path: NuvioMobile/build/Nuvio-0.4.7-appstore-unsigned.ipa
+          name: Nuvio-0.4.7-debug-unsigned-ipa
+          path: NuvioMobile/build/Nuvio-0.4.7-debug-unsigned.ipa
           if-no-files-found: error
           compression-level: 0
           retention-days: 7
