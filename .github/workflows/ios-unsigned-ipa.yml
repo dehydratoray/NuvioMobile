@@ -38,10 +38,9 @@ jobs:
         working-directory: NuvioMobile
         env:
           NUVIO_IOS_DISTRIBUTION: appstore
-          GRADLE_OPTS: -Xmx8g -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=2g
-          KOTLIN_DAEMON_JVMARGS: -Xmx6g
         run: |
           touch local.properties
+          printf '\norg.gradle.jvmargs=-Xmx4g -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=1g\nkotlin.daemon.jvmargs=-Xmx3g\nkotlin.native.jvmArgs=-Xmx6g\n' >> gradle.properties
           xcodebuild \
             -project iosApp/iosApp.xcodeproj \
             -scheme iosApp \
