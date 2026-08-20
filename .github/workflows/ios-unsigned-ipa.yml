@@ -41,6 +41,7 @@ jobs:
           GRADLE_OPTS: -Xmx8g -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=2g
           KOTLIN_DAEMON_JVMARGS: -Xmx6g
         run: |
+          touch local.properties
           xcodebuild \
             -project iosApp/iosApp.xcodeproj \
             -scheme iosApp \
