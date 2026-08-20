@@ -8,19 +8,19 @@ permissions:
 
 jobs:
   build:
-    runs-on: macos-15
+    runs-on: macos-26
     timeout-minutes: 180
 
     steps:
       - name: Check out NuvioMobile
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: NuvioMobile
           fetch-depth: 1
 
 
       - name: Set up Java 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "17"
