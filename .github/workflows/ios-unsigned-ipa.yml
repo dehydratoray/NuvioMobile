@@ -40,7 +40,7 @@ jobs:
           NUVIO_IOS_DISTRIBUTION: appstore
         run: |
           touch local.properties
-          printf '\norg.gradle.jvmargs=-Xmx2g -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=768m\nkotlin.daemon.jvmargs=-Xmx2g\nkotlin.native.jvmArgs=-Xmx10g\n' >> gradle.properties
+          printf '\norg.gradle.jvmargs=-Xmx4g -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=1g\nkotlin.daemon.jvmargs=-Xmx2g\nkotlin.native.jvmArgs=-Xmx10g\n' >> gradle.properties
           xcodebuild \
             -project iosApp/iosApp.xcodeproj \
             -scheme iosApp \
